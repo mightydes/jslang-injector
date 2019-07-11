@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "name": "jslang-injector",
+  "description": "Simple JavaScript service injector.",
+  "keywords": [
+    "inject",
+    "injector",
+    "di",
+    "dependency injection"
+  ],
+  "author": {
+    "name": "Lev Nazarenko",
+    "email": "lynazarenko@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:mightydes/jslang-injector.git"
+  },
+  "homepage": "https://github.com/mightydes/jslang-injector",
+  "bugs": {
+    "url": "https://github.com/mightydes/jslang-injector/issues"
+  },
+  "license": "MIT",
+  "main": "src/index.js",
+  "dependencies": {
+    "underscore": "^1.8"
+  },
+  "devDependencies": {}
+}
