@@ -14,7 +14,7 @@ class Di {
             this.__stack.push(id);
         } else {
             // Check cycling:
-            if (this.__stack.indexOf(id) > -1) {
+            if (this.__stack.length > 1000) {
                 return console.error(`[jslang-injector] Detected cycling during injecting!`);
             }
             this.__stack.push(id);
