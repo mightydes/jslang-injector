@@ -5,8 +5,7 @@ Depends only on `underscore`.
 Compatible with IE 9 (no proxies).
 
 ---
-
-Usage:
+## Usage
 
 ```js
 const injector = require('jslang-injector');
@@ -66,7 +65,6 @@ return di.cheesePizzaService().bake();
 ```
 
 ---
-
 ## Quick Guide
 
 This simple package provides two resolve behaviors and four ways to define resolver.
@@ -141,3 +139,47 @@ This simple package provides two resolve behaviors and four ways to define resol
 1.  As service (`injector.service(['asFunction', cacheService])`) -- would be resolved once and cached for later usage.
 
 1.  As factory (`injector.factory(['asFunction', cacheService])`) -- would be resolved on every `di.cacheService()` call.
+
+---
+## ExpressJS middleware
+
+Sample usage with [express](http://expressjs.com/) framework.
+In this case used middleware to bind `req.di` object.
+
+```js
+const express = require('express');
+const injector = require('jslang-injector');
+const inject = require('jslang-injector/express/middleware/inject');
+
+const CacheService = require('./path/to/cache-service');
+const PizzaService = require('./path/to/pizza-service');
+
+// Define available services bind handler:
+inject.bindHandler = (req, serviceKey) => {
+    switch (serviceKey) {
+        case 'cache':
+            req.di.cache = injector.service(CacheService);
+            break;
+        case 'pizza':
+            req.di.pizza = injector.service(PizzaService);
+            break;
+        default:
+            throw new Error(`Invalid service key: '${serviceKey}'!`);
+    }
+};
+
+
+const app = express();
+
+app.use('/hello-pizza', inject(['cache', 'pizza']), (req, res) => {
+//                      ^ 'inject.bindHandler' will be called here
+
+    // Now we can use services:
+    let pizza = req.di.cache().get('pizza');
+    if (!pizza) {
+        pizza = req.di.pizza().bake();
+    }
+    return res.send(pizza.toHtml());
+});
+
+```
