@@ -149,7 +149,7 @@ In this case used middleware to bind `req.di` object.
 ```js
 const express = require('express');
 const injector = require('jslang-injector');
-const inject = require('jslang-injector/express/middleware/inject');
+const inject = require('jslang-injector/src/express/middleware/inject');
 
 const CacheService = require('./path/to/cache-service');
 const PizzaService = require('./path/to/pizza-service');
